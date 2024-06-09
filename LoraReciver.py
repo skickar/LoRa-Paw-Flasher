@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
 # SPDX-License-Identifier: MIT
 
+## RECIEVER
+
 # Simple demo of sending and recieving data with the RFM95 LoRa radio.
 # Author: Tony DiCola
 import board
@@ -60,8 +62,17 @@ rfm9x = adafruit_rfm9x.RFM9x(spi, CS, RESET, RADIO_FREQ_MHZ)
 
 # You can however adjust the transmit power (in dB).  The default is 13 dB but
 # high power radios like the RFM95 can go up to 23 dB:
+# Common settings for both transmitter and receiver
 rfm9x.tx_power = 23
-#rfm9x.spreading_factor = 5
+#rfm9x.spreading_factor = 12
+rfm9x.coding_rate = 5
+rfm9x.signal_bandwidth = 125000
+rfm9x.enable_crc = True
+rfm9x.auto_agc = True
+rfm9x.preamble_length = 12
+
+# Ensure low data rate optimization is enabled
+rfm9x.low_data_rate_optimize = True
 
 flash = digitalio.DigitalInOut(board.IO37)
 flash.direction = digitalio.Direction.OUTPUT
